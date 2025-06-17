@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 public class Login extends JFrame implements ActionListener {
 
-    private Color azulBbva = new Color(17, 0, 41);
-    private Color azulBbva2 = new Color(42, 0, 87);
+    public static Color azulBbva = new Color(17, 0, 41);
+    public static Color azulBbva2 = new Color(42, 0, 87);
 
     JButton signupBttn, clearBtnn, loginBttn;
     JLabel bienvenida, numTarjeta, nip;
@@ -89,6 +89,7 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource() == clearBtnn){
             tarjetaTF.setText("");
@@ -97,7 +98,8 @@ public class Login extends JFrame implements ActionListener {
 
 
         } else if (ae.getSource() == signupBttn) {
-
+            SignUpOne SignUpOne = new SignUpOne();
         }
     }
+
 }
