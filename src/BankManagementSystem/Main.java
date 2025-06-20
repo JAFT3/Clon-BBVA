@@ -1,5 +1,4 @@
 package BankManagementSystem;
-
 import BankManagementSystem.ui.Login;
 
 public class Main {
