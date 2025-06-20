@@ -1,19 +1,23 @@
 package BankManagementSystem.ui;
 
+import BankManagementSystem.process.Conexion;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 
-public class SignUpOne extends JFrame {
+public class SignUpOne extends JFrame implements ActionListener {
     JLabel form, personalDetails, nombre, apellidoPaterno, fechaNacimiento, genero, email, estadoCivil, direccion, ciudad, estado, codigoPostal;
-    JTextField nombreTf, apellidoPaternoTf, fechaNacimientoTf, emailTf, estadoCivilTf, direccionTf, ciudadTf, estadoTf, codigoPostalTf;
+    JTextField nombreTf, apellidoPaternoTf, emailTf, direccionTf, ciudadTf, estadoTf, codigoPostalTf;
     JRadioButton hombre, mujer, casado, soltero, otro;
     ButtonGroup grupoEstadoCivil, grupoGenero;
     JDateChooser dateChooser;
     JButton siguiente;
+    long random;
 
     SignUpOne(){
         getContentPane().setBackground(Login.azulBbva);
@@ -23,7 +27,7 @@ public class SignUpOne extends JFrame {
         setVisible(true);
 
         Random ran = new Random();
-        long random = ran.nextInt(9000);
+        random = ran.nextInt(9000);
 
         form = new JLabel("Formulario de solicitud No. " + random);
         form.setFont(new Font("Raleway", Font.BOLD, 30));
@@ -129,7 +133,7 @@ public class SignUpOne extends JFrame {
 
         grupoEstadoCivil = new ButtonGroup();
         grupoEstadoCivil.add(casado);
-        grupoEstadoCivil.add(mujer);
+        grupoEstadoCivil.add(soltero);
         grupoEstadoCivil.add(otro);
 
         direccion = new JLabel("Direccion: ");
@@ -181,8 +185,48 @@ public class SignUpOne extends JFrame {
         siguiente.setForeground(Color.WHITE);
         siguiente.setFont(new Font("Raleway", Font.BOLD, 14));
         siguiente.setBounds(630,660,120,30);
+        siguiente.addActionListener(this);
         add(siguiente);
-
-
     }
+
+    public void actionPerformed(ActionEvent ae){
+        String formno = "" + random; //Generador aleatorio de numero de telefono
+        String nombre = nombreTf.getText();
+        String apellido = apellidoPaternoTf.getText();
+        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String genero = null;
+        if (hombre.isSelected()){
+            genero = "Hombre";
+        } else if (mujer.isSelected()) {
+            genero = "Mujer";
+        }
+        String email = emailTf.getText();
+        String estadoCivil = null;
+        if (casado.isSelected()){
+            estadoCivil = "Casado";
+        }else if (soltero.isSelected()){
+            estadoCivil = "Soltero";
+        }else if (otro.isSelected()){
+            estadoCivil = "Otro";
+        }
+
+        String direccion = direccionTf.getText();
+        String ciudad = ciudadTf.getText();
+        String estado = estadoTf.getText();
+        String codigoPostal = codigoPostalTf.getText();
+
+        try {
+            if(nombre.equals("") || apellido.equals("")){
+                JOptionPane.showMessageDialog(null, "Rellena los campos obligatorios");
+            }else {
+                Conexion c = new Conexion();
+                String query = "insert into signup values('"+formno+"', '"+nombre+"', '"+apellido+"', '"+dob+"', '"+genero+"', '"+email+"', '"+estadoCivil+"'," +
+                        " '"+direccion+"', '"+ciudad+"', '"+estado+"', '"+codigoPostal+"')";
+               c.s.executeUpdate(query);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
 }
