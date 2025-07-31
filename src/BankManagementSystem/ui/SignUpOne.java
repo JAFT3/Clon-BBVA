@@ -84,7 +84,7 @@ public class SignUpOne extends JFrame implements ActionListener {
         genero = crearLabel("Genero:",100,290,200,30);
 
         hombre = crearRadioButton("Hombre",350,290,80,30);
-        mujer = crearRadioButton("Mujer",500,290,60,30);
+        mujer = crearRadioButton("Mujer",500,290,80,30);
 
         grupoGenero = new ButtonGroup();
         grupoGenero.add(hombre);
