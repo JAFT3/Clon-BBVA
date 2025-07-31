@@ -201,8 +201,8 @@ public class SignUpTwo extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
             } else {
                 Conexion c = new Conexion();
-                String query = "insert into signuptwo values('"+curp+"','"+rfc+"','"+ingreso+"','"+id+"'," +
-                        "'"+id_num+"','"+comprobante+"','"+ocupacion+"','"+tipo_cuenta+"', '"+cliente_existente+"')";
+                String query = "insert into signuptwo values('"+formno+"','"+curp+"','"+rfc+"','"+id+"'," +
+                        "'"+id_num+"','"+comprobante+"','"+ingreso+"','"+ocupacion+"','"+tipo_cuenta+"','"+cliente_existente+"')";
                 c.s.executeUpdate(query);
             }
         } catch (Exception e) {
